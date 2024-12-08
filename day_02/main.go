@@ -86,7 +86,7 @@ func part_2(filename string) {
 func read_file(filename string) [][]int {
 	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Printf("File %d does not exist", filename)
+		fmt.Printf("File %s does not exist", filename)
 	}
 
 	array := [][]int{}
