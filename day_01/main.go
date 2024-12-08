@@ -82,7 +82,7 @@ func part_2(filename string) {
 func read_file(filename string) ([]int, []int) {
 	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Printf("File %d does not exist", filename)
+		fmt.Printf("File %s does not exist", filename)
 	}
 
 	array1 := []int{}
@@ -119,7 +119,7 @@ func quicksort(array []int) []int {
 	array[idx] = pivot
 
 	left := quicksort(array[0:idx])
-	right := quicksort(array[idx+1 : len(array)])
+	right := quicksort(array[idx+1:])
 
 	left = append(left, array[idx])
 	return append(left, right...)
