@@ -87,8 +87,8 @@ func read_file(filename string) ([]int, []int) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		values := strings.Split(scanner.Text(), "   ")
-		val1, _ := strconv.Atoi(values[0])
-		val2, _ := strconv.Atoi(values[1])
+		val1,_ := strconv.Atoi(values[0])
+		val2,_ := strconv.Atoi(values[1])
 		array1 = append(array1, val1)
 		array2 = append(array2, val2)
 	}
