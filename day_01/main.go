@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -19,7 +20,6 @@ func main() {
 
 	if len(os.Args) > 2 {
 		part := os.Args[2]
-
 		if part == "1" {
 			part_1(filename)
 		} else if part == "2" {
@@ -43,11 +43,8 @@ func part_1(filename string) {
 	//sum the differences of each entry in the arrays
 	sum := 0
 	for i := 0; i < len(array1); i++ {
-		num := array1[i] - array2[i]
-		if num < 0 {
-			num = num * -1
-		}
-		sum = sum + num
+		diff := math.Abs(float64(array1[i] - array2[i]))
+		sum = sum + int(diff)
 	}
 
 	fmt.Println("part 1:", sum)
