@@ -39,7 +39,7 @@ func part_1(filename string) {
 
 	result := 0
 
-	for row, _ := range array {
+	for row := range array {
 		safe := evaluate_safety(array[row])
 		if safe {
 			result++
@@ -54,7 +54,7 @@ func part_2(filename string) {
 
 	result := 0
 
-	for row, _ := range array {
+	for row := range array {
 		safe := evaluate_safety(array[row])
 		if safe {
 			result++
