@@ -87,91 +87,67 @@ func part_2(filename string) {
 			downright := move(word, 0, array, row, col, "DR")
 			downleft := move(word, 0, array, row, col, "DL")
 			upleft := move(word, 0, array, row, col, "UL")
-			if upright {
-				ur := strconv.Itoa(row) + ", " + strconv.Itoa(col) + " UR"
-				_, prs_ur := m[ur]
+			if upright && !already_used(row, col, "UR", m) {
 				row_n := row - 2
 				downright := move(word, 0, array, row_n, col, "DR")
-				dr := strconv.Itoa(row_n) + ", " + strconv.Itoa(col) + " DR"
-				_, prs_dr := m[dr]
-				if downright && !prs_dr && !prs_ur {
-					m[dr] = true
-					m[ur] = true
+				if downright && !already_used(row_n, col, "DR", m) {
+					m[create_id(row_n, col, "DR")] = true
+					m[create_id(row, col, "UR")] = true
 					count++
 				}
 				col_n := col + 2
 				upleft := move(word, 0, array, row, col_n, "UL")
-				ul := strconv.Itoa(row) + ", " + strconv.Itoa(col_n) + " UL"
-				_, prs_ul := m[ul]
-				if upleft && !prs_ul && !prs_ur {
-					m[ul] = true
-					m[ur] = true
+				if upleft && !already_used(row, col_n, "UL", m) {
+					m[create_id(row, col_n, "UL")] = true
+					m[create_id(row, col, "UR")] = true
 					count++
 				}
 			}
-			if downright {
-				dr := strconv.Itoa(row) + ", " + strconv.Itoa(col) + " DR"
-				_, prs_dr := m[dr]
+			if downright && !already_used(row, col, "DR", m) {
 				row_n := row + 2
 				upright := move(word, 0, array, row_n, col, "UR")
-				ur := strconv.Itoa(row_n) + ", " + strconv.Itoa(col) + " UR"
-				_, prs_ur := m[ur]
-				if upright && !prs_ur && !prs_dr {
-					m[dr] = true
-					m[ur] = true
+				if upright && !already_used(row_n, col, "UR", m) {
+					m[create_id(row_n, col, "UR")] = true
+					m[create_id(row, col, "DR")] = true
 					count++
 				}
 				col_n := col + 2
 				downleft := move(word, 0, array, row, col_n, "DL")
-				dl := strconv.Itoa(row) + ", " + strconv.Itoa(col_n) + " DL"
-				_, prs_dl := m[dl]
-				if downleft && !prs_dl && !prs_dr {
-					m[dl] = true
-					m[dr] = true
+				if downleft && !already_used(row, col_n, "DL", m) {
+					m[create_id(row, col_n, "DL")] = true
+					m[create_id(row, col, "DR")] = true
 					count++
 				}
 			}
-			if downleft {
-				dl := strconv.Itoa(row) + ", " + strconv.Itoa(col) + " DL"
-				_, prs_dl := m[dl]
+			if downleft && !already_used(row, col, "DL", m) {
 				row_n := row + 2
 				upleft := move(word, 0, array, row_n, col, "UL")
-				ul := strconv.Itoa(row_n) + ", " + strconv.Itoa(col) + " UL"
-				_, prs_ul := m[ul]
-				if upleft && !prs_ul && !prs_dl {
-					m[ul] = true
-					m[dl] = true
+				if upleft && !already_used(row_n, col, "UL", m) {
+					m[create_id(row_n, col, "UL")] = true
+					m[create_id(row, col, "DL")] = true
 					count++
 				}
 				col_n := col - 2
 				downright := move(word, 0, array, row, col_n, "DR")
-				dr := strconv.Itoa(row) + ", " + strconv.Itoa(col_n) + " DR"
-				_, prs_dr := m[dr]
-				if downright && !prs_dr && !prs_dl {
-					m[dr] = true
-					m[dl] = true
+				if downright && !already_used(row, col_n, "DR", m) {
+					m[create_id(row, col_n, "DR")] = true
+					m[create_id(row, col, "DL")] = true
 					count++
 				}
 			}
-			if upleft {
-				ul := strconv.Itoa(row) + ", " + strconv.Itoa(col) + " UL"
-				_, prs_ul := m[ul]
+			if upleft && !already_used(row, col, "UL", m) {
 				row_n := row - 2
 				downleft := move(word, 0, array, row_n, col, "DL")
-				dl := strconv.Itoa(row_n) + ", " + strconv.Itoa(col) + " DL"
-				_, prs_dl := m[dl]
-				if downleft && !prs_dl && !prs_ul {
-					m[dl] = true
-					m[ul] = true
+				if downleft && !already_used(row_n, col, "DL", m) {
+					m[create_id(row_n, col, "DL")] = true
+					m[create_id(row, col, "UL")] = true
 					count++
 				}
 				col_n := col - 2
 				upright := move(word, 0, array, row, col_n, "UR")
-				ur := strconv.Itoa(row) + ", " + strconv.Itoa(col_n) + " UR"
-				_, prs_ur := m[ur]
-				if upright && !prs_ur && !prs_ul {
-					m[ur] = true
-					m[ul] = true
+				if upright && !already_used(row, col_n, "UR", m) {
+					m[create_id(row, col_n, "UR")] = true
+					m[create_id(row, col, "UL")] = true
 					count++
 				}
 			}
@@ -221,4 +197,14 @@ func move(word []rune, idx int, array [][]rune, row int, col int, direction stri
 		return move(word, idx+1, array, row, col, direction)
 	}
 	return false
+}
+
+func already_used(row int, col int, direction string, m map[string]bool) bool {
+	val := create_id(row, col, direction)
+	_, prs := m[val]
+	return prs
+}
+
+func create_id(row int, col int, direction string) string {
+	return strconv.Itoa(row) + ", " + strconv.Itoa(col) + " " + direction
 }
